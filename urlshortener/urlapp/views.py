@@ -37,14 +37,10 @@ def decode(request):
 			print(shortcode)
 		
 			qs = Url.objects.filter(shortcode=shortcode).first()
-			print(qs)
+			
 			original_url = str(qs)
-			return HttpResponse('URL is: '+original_url)
-			# except:
-				# return HttpResponse('URL not in db')
-
-
-
-
+			if original_url is None:
+				return HttpResponse('URL is: '+original_url)
+			return HttpResponse('URL not in db')
 
 	return render(request,'urlapp/decode.html',{'form':form})
